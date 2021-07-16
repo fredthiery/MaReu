@@ -15,11 +15,16 @@ public class MyViewModel extends ViewModel {
         return meetings;
     }
 
-    public static void addMeeting() {
-        meetings.add(new Meeting( System.currentTimeMillis(),
-                "Salle Luigi",
-                "Réunion inutile",
-                Arrays.asList("pierre.quiroule@lamzone.com","lucie.dubois@lamzone.com")
-        ));
+    public static void addMeeting(long time, String place, String title, List<String> participants) {
+        meetings.add(new Meeting(time, place, title, participants));
+    }
+
+    public static void addMeeting(long time, String place, String title, String participants) {
+        List<String> p = Arrays.asList(participants.split(", "));
+        meetings.add(new Meeting(time, place, title, p));
+    }
+
+    public static void deleteMeeting(Meeting meeting) {
+        meetings.remove(meeting);
     }
 }

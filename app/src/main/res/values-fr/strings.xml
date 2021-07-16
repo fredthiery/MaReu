@@ -15,4 +15,24 @@
     <string name="invalid_username">Nom d\'utilisateur invalide</string>
     <string name="invalid_password">Le mot de passe doit être >5 caractères</string>
     <string name="login_failed">Erreur de connexion</string>
+    <string-array name="meeting_rooms">
+        <item>Salle Mario</item>
+        <item>Salle Luigi</item>
+        <item>Salle Peach</item>
+        <item>Salle Bowser</item>
+        <item>Salle Toad</item>
+    </string-array>
+    <string-array name="participants">
+        <item>jean.talus@lamzone.com</item>
+        <item>paul.hochon@lamzone.fr</item>
+        <item>marie.golote@lamzone.fr</item>
+        <item>pierre.hoquet@lamzone.com</item>
+        <item>patrick.ortreat@lamzone.com</item>
+        <item>rosalie.mentation@lamzone.com</item>
+        <item>sonia.toutenbloc@lamzone.com</item>
+        <item>martin.tamarre@lamzone.com</item>
+    </string-array>
+    <string name="new_meeting">Nouvelle réunion</string>
+    <string name="filter">Filtrer</string>
+    <string name="filter_meeting_list">Filtrer la liste de réunions</string>
 </resources>

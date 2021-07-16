@@ -8,11 +8,11 @@ import java.util.List;
 
 public class DummyMeetingRepo {
     public static List<Meeting> DUMMY_MEETINGS = Arrays.asList(
-            new Meeting(0,"Salle Peach","Réunion d'information",
+            new Meeting(1627201805149L,"Salle Peach","Réunion d'information",
                     Arrays.asList("jean.talus@lamzone.com","paul.hochon@lamzone.fr","marie.golote@lamzone.fr")),
-            new Meeting(60,"Salle Mario", "Brainstorming",
+            new Meeting(1627466424998L,"Salle Mario", "Brainstorming",
                     Arrays.asList("pierre.hoquet@lamzone.com","patrick.ortrite@lamzone.com","rosalie.mentation@lamzone.com")),
-            new Meeting( 256,"Salle Wario","Event Storming",
+            new Meeting(1627647906980L,"Salle Wario","Event Storming",
                     Arrays.asList("sonia.enbloc@lamzone.com","martin.tamarre@lamzone.com"))
     );
 

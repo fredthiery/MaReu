@@ -15,4 +15,24 @@
     <string name="participants_input">Participants</string>
     <string name="save_button">Save</string>
     <string name="meeting_room_input">Meeting room</string>
+    <string name="new_meeting">New meeting</string>
+    <string name="filter">Filter</string>
+    <string name="filter_meeting_list">Filter meeting list</string>
+    <string-array name="meeting_rooms">
+        <item>Mario Room</item>
+        <item>Luigi Room</item>
+        <item>Peach Room</item>
+        <item>Bowser Room</item>
+        <item>Toad Room</item>
+    </string-array>
+    <string-array name="participants">
+        <item>jean.talus@lamzone.com</item>
+        <item>paul.hochon@lamzone.fr</item>
+        <item>marie.golote@lamzone.fr</item>
+        <item>pierre.hoquet@lamzone.com</item>
+        <item>patrick.ortreat@lamzone.com</item>
+        <item>rosalie.mentation@lamzone.com</item>
+        <item>sonia.toutenbloc@lamzone.com</item>
+        <item>martin.tamarre@lamzone.com</item>
+    </string-array>
 </resources>
