@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MaRéu</string>
+    <string name="meeting_title_input">Titre de la réunion</string>
+    <string name="date_input">Date</string>
+    <string name="hour_input">Heure</string>
+    <string name="meeting_room_input">Salle de réunion</string>
+    <string name="participants_input">Participants</string>
+    <string name="save_button">Sauvegarder</string>
+    <string name="prompt_password">Mot de passe</string>
+    <string name="prompt_email">Email</string>
+    <string name="action_sign_in_short">Connexion</string>
+    <string name="action_sign_in">Connexion ou inscription</string>
+    <string name="welcome">Bienvenue !</string>
+    <string name="invalid_username">Nom d\'utilisateur invalide</string>
+    <string name="invalid_password">Le mot de passe doit être >5 caractères</string>
+    <string name="login_failed">Erreur de connexion</string>
+</resources>
