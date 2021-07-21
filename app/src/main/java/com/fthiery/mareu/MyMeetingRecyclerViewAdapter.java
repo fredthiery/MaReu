@@ -10,13 +10,11 @@ import android.widget.TextView;
 
 import com.fthiery.mareu.model.Meeting;
 import com.fthiery.mareu.databinding.FragmentMeetingBinding;
-import com.fthiery.mareu.viewmodel.MyViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Meeting}.
@@ -50,7 +48,7 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
         holder.participantsTextView.setText(participants);
 
         holder.deleteButton.setOnClickListener(v -> {
-            MyViewModel.deleteMeeting(meeting);
+            meetings.remove(meeting);
             notifyDataSetChanged();
         });
     }

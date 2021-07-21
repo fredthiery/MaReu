@@ -1,22 +1,14 @@
 package com.fthiery.mareu;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.CompletionInfo;
 import android.widget.ArrayAdapter;
 import android.widget.MultiAutoCompleteTextView;
 
 import com.fthiery.mareu.databinding.ActivityAddMeetingBinding;
-import com.fthiery.mareu.viewmodel.MyViewModel;
-import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -24,10 +16,8 @@ import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.Objects;
 
 public class AddMeetingActivity extends AppCompatActivity {
 
@@ -41,10 +31,6 @@ public class AddMeetingActivity extends AppCompatActivity {
         binding = ActivityAddMeetingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.meetingDateEdit.setOnClickListener(v -> buttonSelectDate());
-        binding.meetingTimeEdit.setOnClickListener(v -> buttonSelectTime());
-        binding.newMeetingSaveButton.setOnClickListener(v -> buttonSaveMeeting());
-
         binding.meetingRoomEdit.setAdapter(ArrayAdapter.createFromResource(this,R.array.meeting_rooms, R.layout.list_item));
 
         binding.meetingParticipantsEdit.setAdapter(ArrayAdapter.createFromResource(this,R.array.participants, R.layout.list_item));
@@ -53,7 +39,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         binding.topAppBar.setNavigationOnClickListener(v -> finish());
     }
 
-    private void buttonSelectDate() {
+    public void buttonSelectDate(View view) {
         MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
         CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder().setValidator(DateValidatorPointForward.now());
         builder.setSelection(cal.getTimeInMillis());
@@ -73,7 +59,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         datePicker.show(getSupportFragmentManager(),"tag");
     }
 
-    private void buttonSelectTime() {
+    public void buttonSelectTime(View view) {
         MaterialTimePicker timePicker = new MaterialTimePicker.Builder()
                 .setTimeFormat(TimeFormat.CLOCK_24H)
                 .setHour(cal.get(Calendar.HOUR_OF_DAY))
@@ -94,12 +80,15 @@ public class AddMeetingActivity extends AppCompatActivity {
         timePicker.show(getSupportFragmentManager(),"tag");
     }
 
-    private void buttonSaveMeeting() {
-        Long time = cal.getTimeInMillis();
-        String place = binding.meetingRoomEdit.getText().toString();
-        String title = binding.meetingTitleEdit.getText().toString();
-        String participants = binding.meetingParticipantsEdit.getText().toString();
-        MyViewModel.addMeeting(time,place,title,participants);
+    public void saveMeeting(View view) {
+        Intent intent = new Intent();
+
+        intent.putExtra("time",cal.getTimeInMillis());
+        intent.putExtra("place",binding.meetingRoomEdit.getText().toString());
+        intent.putExtra("title",binding.meetingTitleEdit.getText().toString());
+        intent.putExtra("participants",binding.meetingParticipantsEdit.getText().toString());
+
+        setResult(RESULT_OK,intent);
         finish();
     }
 }
