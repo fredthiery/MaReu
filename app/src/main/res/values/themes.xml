@@ -19,7 +19,14 @@
         <item name="hintTextAppearance">@style/TextAppearance.MaRéu.TextInputLayout.HintText</item>
         <item name="hintTextColor">@color/colorPrimary</item>
         <item name="android:paddingBottom">8dp</item>
-        <item name="boxStrokeColor">@color/textColorPrimary</item>
+        <item name="boxStrokeColor">@color/colorAccent</item>
+    </style>
+
+    <style name="Widget.MaRéu.TextInputLayout.ExposedDropDownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="hintTextAppearance">@style/TextAppearance.MaRéu.TextInputLayout.HintText</item>
+        <item name="hintTextColor">@color/colorPrimary</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="boxStrokeColor">@color/colorAccent</item>
     </style>
 
     <style name="TextAppearance.MaRéu.TextInputLayout.HintText" parent="TextAppearance.MaterialComponents.Subtitle2">

@@ -1,6 +1,7 @@
 package com.fthiery.mareu.model;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Meeting {
 
@@ -61,4 +62,18 @@ public class Meeting {
     public void setParticipants(List<String> participants) {
         this.participants = participants;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Meeting meeting = (Meeting) o;
+        return Objects.equals(time, meeting.time) && Objects.equals(place, meeting.place) && Objects.equals(title, meeting.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(time,place,title);
+    }
+
 }

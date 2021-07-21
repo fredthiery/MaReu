@@ -13,7 +13,9 @@ public class DummyMeetingRepo {
             new Meeting(1627466424998L,"Salle Mario", "Brainstorming",
                     Arrays.asList("pierre.hoquet@lamzone.com","patrick.ortrite@lamzone.com","rosalie.mentation@lamzone.com")),
             new Meeting(1627647906980L,"Salle Wario","Event Storming",
-                    Arrays.asList("sonia.enbloc@lamzone.com","martin.tamarre@lamzone.com"))
+                    Arrays.asList("sonia.enbloc@lamzone.com","martin.tamarre@lamzone.com")),
+            new Meeting(1627466424998L,"Salle Bowser","Briefing",
+                    Arrays.asList("marie.golote@lamzone.fr","patrick.ortreat@lamzone.com"))
     );
 
     public static List<Meeting> generateMeetings() {

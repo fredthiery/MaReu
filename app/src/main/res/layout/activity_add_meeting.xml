@@ -31,6 +31,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/meeting_title_text_input"
+            style="@style/Widget.MaRéu.TextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -49,9 +50,10 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/meeting_date_text_input"
+            style="@style/Widget.MaRéu.TextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toStartOf="@+id/meeting_time_text_input"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/meeting_title_text_input">
@@ -61,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:focusable="false"
+                android:focusable="true"
                 android:hint="@string/date_input"
                 android:inputType="date"
                 android:onClick="buttonSelectDate" />
@@ -70,12 +72,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/meeting_time_text_input"
+            style="@style/Widget.MaRéu.TextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/meeting_date_text_input"
+            app:layout_constraintStart_toEndOf="@+id/meeting_date_text_input"
             app:layout_constraintTop_toBottomOf="@id/meeting_title_text_input">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -83,7 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:focusable="false"
+                android:focusable="true"
                 android:hint="@string/hour_input"
                 android:inputType="time"
                 android:onClick="buttonSelectTime" />
@@ -92,10 +94,9 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/meeting_room_text_input"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            style="@style/Widget.MaRéu.TextInputLayout.ExposedDropDownMenu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/meeting_time_text_input">
@@ -112,10 +113,9 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/meeting_participants_text_input"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            style="@style/Widget.MaRéu.TextInputLayout.ExposedDropDownMenu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:autofillHints="email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

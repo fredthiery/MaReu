@@ -48,6 +48,7 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
         holder.participantsTextView.setText(participants);
 
         holder.deleteButton.setOnClickListener(v -> {
+            // TODO: appeler une méthode de MainActivity qui appelle MeetingApiService.deleteMeeting()
             meetings.remove(meeting);
             notifyDataSetChanged();
         });
