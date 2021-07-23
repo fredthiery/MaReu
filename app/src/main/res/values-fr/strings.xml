@@ -21,6 +21,7 @@
         <item>Salle Peach</item>
         <item>Salle Bowser</item>
         <item>Salle Toad</item>
+        <item>Salle Wario</item>
     </string-array>
     <string-array name="participants">
         <item>jean.talus@lamzone.com</item>
@@ -32,7 +33,12 @@
         <item>sonia.toutenbloc@lamzone.com</item>
         <item>martin.tamarre@lamzone.com</item>
     </string-array>
-    <string name="new_meeting">Nouvelle réunion</string>
+    <string name="new_meeting_label">Nouvelle réunion</string>
     <string name="filter">Filtrer</string>
     <string name="filter_meeting_list">Filtrer la liste de réunions</string>
+    <string name="filter_by_date_menu_item">Filtrer par date</string>
+    <string name="filter_by_place_menu_item">Filtrer par lieu</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Annuler</string>
+    <string name="place_filter_dialog_title">Filtrer par lieu</string>
 </resources>

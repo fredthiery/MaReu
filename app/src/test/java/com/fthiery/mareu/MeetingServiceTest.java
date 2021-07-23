@@ -5,7 +5,6 @@ import com.fthiery.mareu.repository.DummyMeetingRepo;
 import com.fthiery.mareu.service.DummyMeetingApiService;
 import com.fthiery.mareu.service.MeetingApiService;
 
-import org.hamcrest.collection.IsIterableContainingInAnyOrder;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -32,7 +32,7 @@ public class MeetingServiceTest {
         // When
         List<Meeting> meetings = service.getMeetings();
         // Then
-        assertThat(meetings,IsIterableContainingInAnyOrder.containsInAnyOrder(expectedMeetings.toArray()));
+        assertThat(meetings,containsInAnyOrder(expectedMeetings.toArray()));
     }
 
     @Test
@@ -47,7 +47,7 @@ public class MeetingServiceTest {
         // When
         List<Meeting> meetings = service.getMeetings(1627423247312L,1627509658118L);
         // Then
-        assertThat(meetings,IsIterableContainingInAnyOrder.containsInAnyOrder(expectedMeetings.toArray()));
+        assertThat(meetings,containsInAnyOrder(expectedMeetings.toArray()));
     }
 
     @Test
@@ -60,7 +60,7 @@ public class MeetingServiceTest {
         // When
         List<Meeting> meetings = service.getMeetings("Salle Mario");
         // Then
-        assertThat(meetings, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedMeetings.toArray()));
+        assertThat(meetings,containsInAnyOrder(expectedMeetings.toArray()));
     }
 
     @Test

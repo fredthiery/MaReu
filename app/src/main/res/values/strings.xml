@@ -15,15 +15,21 @@
     <string name="participants_input">Participants</string>
     <string name="save_button">Save</string>
     <string name="meeting_room_input">Meeting room</string>
-    <string name="new_meeting">New meeting</string>
+    <string name="new_meeting_label">New meeting</string>
     <string name="filter">Filter</string>
     <string name="filter_meeting_list">Filter meeting list</string>
+    <string name="filter_by_date_menu_item">Filter by date</string>
+    <string name="filter_by_place_menu_item">Filter by meeting room</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="place_filter_dialog_title">Filter by meeting room</string>
     <string-array name="meeting_rooms">
         <item>Mario Room</item>
         <item>Luigi Room</item>
         <item>Peach Room</item>
         <item>Bowser Room</item>
         <item>Toad Room</item>
+        <item>Wario Room</item>
     </string-array>
     <string-array name="participants">
         <item>jean.talus@lamzone.com</item>

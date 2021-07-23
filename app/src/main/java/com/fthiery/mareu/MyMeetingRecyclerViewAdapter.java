@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -37,21 +38,15 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
         Meeting meeting = meetings.get(position);
         String title = meeting.getTitle();
         String place = meeting.getPlace();
-        String participants = TextUtils.join(", ",meetings.get(position).getParticipants());
+        String participants = TextUtils.join(", ", meetings.get(position).getParticipants());
 
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(meeting.getTime());
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy' 'H'h'mm", Locale.FRANCE);
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy' 'H'h'mm", Locale.getDefault());
         String time = format.format(cal.getTime());
 
-        holder.fullTitleTextView.setText(title+" - "+time+" - "+place);
+        holder.fullTitleTextView.setText(title + " - " + time + " - " + place);
         holder.participantsTextView.setText(participants);
-
-        holder.deleteButton.setOnClickListener(v -> {
-            // TODO: appeler une méthode de MainActivity qui appelle MeetingApiService.deleteMeeting()
-            meetings.remove(meeting);
-            notifyDataSetChanged();
-        });
     }
 
     @Override
@@ -60,15 +55,19 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
         public final TextView fullTitleTextView;
         public final TextView participantsTextView;
-        public final ImageButton deleteButton;
 
         public ViewHolder(FragmentMeetingBinding binding) {
             super(binding.getRoot());
             fullTitleTextView = binding.meetingFullTitle;
             participantsTextView = binding.meetingParticipants;
-            deleteButton = binding.deleteButton;
+
+            binding.deleteButton.setOnClickListener(v -> {
+                meetings.remove(meetings.get(getLayoutPosition()));
+                notifyDataSetChanged();
+            });
         }
 
         @Override

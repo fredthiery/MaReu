@@ -28,7 +28,7 @@ public class DummyMeetingApiService implements MeetingApiService {
     public List<Meeting> getMeetings(Long startDate, Long endDate) {
         List<Meeting> filteredList = new ArrayList<>();
         for (Meeting m: meetings) {
-            if (m.getTime()>=startDate && m.getTime()<=endDate) {
+            if (m.getTime()>=startDate && m.getTime()<endDate) {
                 filteredList.add(m);
             }
         }
@@ -42,7 +42,7 @@ public class DummyMeetingApiService implements MeetingApiService {
     public List<Meeting> getMeetings(String meetingRoom) {
         List<Meeting> filteredList = new ArrayList<>();
         for (Meeting m: meetings) {
-            if (m.getPlace()==meetingRoom) {
+            if (m.getPlace().equals(meetingRoom)) {
                 filteredList.add(m);
             }
         }

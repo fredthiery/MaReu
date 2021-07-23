@@ -3,8 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/filter_menu_item"
+        android:contentDescription="@string/filter_meeting_list"
         android:icon="@drawable/ic_baseline_filter_list_24"
         android:title="@string/filter"
-        android:contentDescription="@string/filter_meeting_list"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/filter_by_date"
+                android:icon="@drawable/ic_baseline_meeting_room_24"
+                android:title="@string/filter_by_date_menu_item" />
+            <item
+                android:id="@+id/filter_by_place"
+                android:icon="@drawable/ic_baseline_today_24"
+                android:title="@string/filter_by_place_menu_item" />
+        </menu>
+    </item>
 </menu>
