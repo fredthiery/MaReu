@@ -2,11 +2,10 @@ package com.fthiery.mareu;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.fthiery.mareu.model.Meeting;
@@ -22,19 +21,21 @@ import java.util.Locale;
  */
 public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetingRecyclerViewAdapter.ViewHolder> {
 
+    // meetings contient nos données
     private final List<Meeting> meetings;
 
-    public MyMeetingRecyclerViewAdapter(List<Meeting> items) {
-        meetings = items;
+    public MyMeetingRecyclerViewAdapter(List<Meeting> meetings) {
+        this.meetings = meetings;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(FragmentMeetingBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new ViewHolder(parent.getContext(),FragmentMeetingBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+        // Récupère les données à afficher depuis le Meeting correspondant et les formate
         Meeting meeting = meetings.get(position);
         String title = meeting.getTitle();
         String place = meeting.getPlace();
@@ -45,7 +46,8 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy' 'H'h'mm", Locale.getDefault());
         String time = format.format(cal.getTime());
 
-        holder.fullTitleTextView.setText(title + " - " + time + " - " + place);
+        // Affiche les données dans les TextView
+        holder.fullTitleTextView.setText(String.format("%s - %s - %s", title, time, place));
         holder.participantsTextView.setText(participants);
     }
 
@@ -58,15 +60,17 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
 
         public final TextView fullTitleTextView;
         public final TextView participantsTextView;
+        private final EventListener mainActivity;
 
-        public ViewHolder(FragmentMeetingBinding binding) {
+        public ViewHolder(Context context, FragmentMeetingBinding binding) {
             super(binding.getRoot());
+            mainActivity = (EventListener) context;
             fullTitleTextView = binding.meetingFullTitle;
             participantsTextView = binding.meetingParticipants;
 
             binding.deleteButton.setOnClickListener(v -> {
-                meetings.remove(meetings.get(getLayoutPosition()));
-                notifyDataSetChanged();
+                // Gestion du clic sur le bouton de suppression de réunion
+                mainActivity.deleteMeeting(meetings.get(getLayoutPosition()));
             });
         }
 

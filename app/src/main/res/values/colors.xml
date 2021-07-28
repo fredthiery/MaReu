@@ -10,8 +10,8 @@
     <color name="colorPrimary">@android:color/holo_blue_light</color>
     <color name="colorPrimaryDark">@android:color/holo_blue_dark</color>
     <color name="colorAccent">@android:color/holo_orange_light</color>
-    <color name="colorSecondary">@android:color/holo_green_light</color>
-    <color name="colorSecondaryDark">@android:color/holo_green_dark</color>
+    <color name="colorSecondary">@android:color/holo_red_light</color>
+    <color name="colorSecondaryDark">@android:color/holo_red_dark</color>
     <color name="textColorPrimary">#404040</color>
-    <color name="toolbarIconColor">@color/textColorPrimary</color>
+    <color name="colorOnBackground">#89000000</color>
 </resources>

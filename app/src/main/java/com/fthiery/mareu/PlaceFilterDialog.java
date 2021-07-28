@@ -8,42 +8,42 @@ import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
 
+import com.fthiery.mareu.model.Meeting;
+
 public class PlaceFilterDialog extends DialogFragment {
 
-    public interface Listener {
-        public void onPlaceFilterSelect(DialogFragment dialog, String place);
-    }
-
-    Listener listener;
+    private EventListener mainActivity;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        // Verify that the host activity implements the callback interface
+        // Vérifie que l'activité hôte implémente l'interface de callback
         try {
-            // Instantiate the NoticeDialogListener so we can send events to the host
-            listener = (Listener) context;
+            // Instancie le listener pour pouvoir renvoyer des évènements à l'hôte
+            mainActivity = (EventListener) context;
         } catch (ClassCastException e) {
-            // The activity doesn't implement the interface, throw exception
+            // Si l'activité n'implèmente pas le listener, envoyer une exception
             throw new ClassCastException(context.toString()
-                    + " must implement NoticeDialogListener");
+                    + " must implement PlaceFilterDialog.Listener");
         }
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the Builder class for convenient dialog construction
+        // TODO: Utiliser un layout custom avec setView() pour afficher un textEdit avec une liste de suggestions
+        // Initialisation de la boîte de dialogue
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
         builder.setTitle(R.string.place_filter_dialog_title)
                 .setItems(R.array.meeting_rooms, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // The 'which' argument contains the index position
-                        // of the selected item
+                        // En cas de clic sur OK, renvoie au listener un String contenant le nom du lieu sélectionné
                         String[] places = getResources().getStringArray(R.array.meeting_rooms);
-                        listener.onPlaceFilterSelect(PlaceFilterDialog.this,places[which]);
+                        mainActivity.onPlaceFilterSelect(PlaceFilterDialog.this,places[which]);
                     }
                 });
-        // Create the AlertDialog object and return it
+
+        // Création de la boîte de dialogue
         return builder.create();
     }
 }

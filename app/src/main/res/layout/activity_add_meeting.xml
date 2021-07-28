@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
-            app:title="@string/app_name" />
+            app:title="@string/new_meeting_label" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
@@ -67,6 +67,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
+                    android:drawableStart="@drawable/ic_baseline_today_24"
+                    android:drawablePadding="16dp"
                     android:focusable="false"
                     android:hint="@string/date_input"
                     android:inputType="date" />
@@ -88,6 +90,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
+                    android:drawableStart="@drawable/ic_baseline_schedule_24"
+                    android:drawablePadding="16dp"
                     android:focusable="false"
                     android:hint="@string/hour_input"
                     android:inputType="time" />
@@ -106,6 +110,8 @@
                     android:id="@+id/meeting_room_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_baseline_meeting_room_24"
+                    android:drawablePadding="16dp"
                     android:hint="@string/meeting_room_input"
                     android:inputType="text"
                     android:singleLine="true" />
@@ -126,6 +132,8 @@
                     android:id="@+id/meeting_participants_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_baseline_people_24"
+                    android:drawablePadding="16dp"
                     android:hint="@string/participants_input"
                     android:inputType="textEmailAddress|textMultiLine" />
             </com.google.android.material.textfield.TextInputLayout>

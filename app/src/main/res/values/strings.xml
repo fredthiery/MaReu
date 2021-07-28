@@ -23,6 +23,7 @@
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
     <string name="place_filter_dialog_title">Filter by meeting room</string>
+    <string name="reset_filter">Reset filter</string>
     <string-array name="meeting_rooms">
         <item>Mario Room</item>
         <item>Luigi Room</item>
