@@ -1,33 +1,29 @@
 package com.fthiery.mareu;
 
+import android.content.Intent;
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.content.Intent;
-import android.os.Bundle;
-
 import com.fthiery.mareu.databinding.ActivityMainBinding;
 import com.fthiery.mareu.model.Meeting;
-import com.fthiery.mareu.service.DummyMeetingApiService;
-import com.fthiery.mareu.service.MeetingApiService;
+import com.fthiery.mareu.service.DummyMeetingList;
+import com.fthiery.mareu.service.MeetingList;
 import com.google.android.material.datepicker.MaterialDatePicker;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.TimeZone;
 
-public class MainActivity extends AppCompatActivity implements EventListener {
+public class MainActivity extends AppCompatActivity implements PlaceFilterDialog.EventListener {
 
     private static final int ADD_MEETING = 1;
     private ActivityMainBinding binding;
-    private final MeetingApiService mMeetings = new DummyMeetingApiService();
-    // TODO placer filteredMeeting dans ApiService et déplacer toute la logique afférente
-    private final List<Meeting> filteredMeetings = new ArrayList<>();
+    private final MeetingList mMeetings = new DummyMeetingList();
     private LinearLayoutManager mManager;
     private MyMeetingRecyclerViewAdapter mAdapter;
 
@@ -41,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements EventListener {
 
         // Initialisation du RecyclerView
         mManager = new LinearLayoutManager(binding.meetingRecyclerView.getContext());
-        mAdapter = new MyMeetingRecyclerViewAdapter(filteredMeetings);
+        mAdapter = new MyMeetingRecyclerViewAdapter(mMeetings);
 
         // En cas de clic sur le floatingActionButton, appel de l'activité addMeeting
         binding.fabAddMeeting.setOnClickListener(v -> {
@@ -58,7 +54,8 @@ public class MainActivity extends AppCompatActivity implements EventListener {
                 selectFilterPlace();
                 return true;
             } else if (item.getItemId() == R.id.reset_filter) {
-                setFilter(mMeetings.getMeetings());
+                mMeetings.setFilter();
+                updateUI();
                 return true;
             } else return false;
         });
@@ -70,7 +67,8 @@ public class MainActivity extends AppCompatActivity implements EventListener {
         // Configuration du RecyclerView
         binding.meetingRecyclerView.setLayoutManager(mManager);
         binding.meetingRecyclerView.setAdapter(mAdapter);
-        setFilter(mMeetings.getMeetings());
+        mMeetings.setFilter();
+        updateUI();
     }
 
     @Override
@@ -94,22 +92,10 @@ public class MainActivity extends AppCompatActivity implements EventListener {
         mMeetings.addMeeting(new Meeting(time, place, title, p));
     }
 
-    @Override
-    public void deleteMeeting(Meeting meeting) {
-        mMeetings.deleteMeeting(meeting);
-        filteredMeetings.remove(meeting);
-        Objects.requireNonNull(binding.meetingRecyclerView.getAdapter()).notifyDataSetChanged();
-    }
-
-    private void setFilter(List<Meeting> meetings) {
-        // Remise à zéro de la liste filteredMeetings
-        filteredMeetings.clear();
-        filteredMeetings.addAll(meetings);
-        Objects.requireNonNull(binding.meetingRecyclerView.getAdapter()).notifyDataSetChanged();
-
+    private void updateUI() {
+        mAdapter.notifyDataSetChanged();
         // Affiche ou masque le bouton de remise à zéro du filtre
-        boolean displayFilterResetItem = !meetings.equals(mMeetings.getMeetings());
-        binding.topAppBar.getMenu().findItem(R.id.reset_filter).setVisible(displayFilterResetItem);
+        binding.topAppBar.getMenu().findItem(R.id.reset_filter).setVisible(mMeetings.isFiltered());
     }
 
     private void selectFilterDate() {
@@ -122,9 +108,10 @@ public class MainActivity extends AppCompatActivity implements EventListener {
         MaterialDatePicker<Pair<Long, Long>> dateRangePicker = builder.build();
 
         dateRangePicker.addOnPositiveButtonClickListener(selection -> {
-            // Au clic sur Ok, met à jour la RecyclerView avec la liste filtrée
+            // Au clic sur Ok, applique le filtre à mMeetings et met à jour la RecyclerView
             int timeZoneOffset = TimeZone.getDefault().getOffset(new Date().getTime());
-            setFilter(mMeetings.getMeetings(selection.first - timeZoneOffset, selection.second + 86400000L - timeZoneOffset));
+            mMeetings.setFilter(selection.first - timeZoneOffset, selection.second + 86400000L - timeZoneOffset);
+            updateUI();
         });
 
         // Affiche la boite de dialogue
@@ -139,7 +126,8 @@ public class MainActivity extends AppCompatActivity implements EventListener {
 
     @Override
     public void onPlaceFilterSelect(DialogFragment dialog, String place) {
-        // Au clic sur un lieu dans la liste, met à jour la RecyclerView avec la liste filtrée
-        setFilter(mMeetings.getMeetings(place));
+        // Au clic sur un lieu dans la liste, applique le filtre à mMeetings et met à jour la RecyclerView
+        mMeetings.setFilter(place);
+        updateUI();
     }
 }

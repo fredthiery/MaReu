@@ -4,18 +4,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
 
 import com.fthiery.mareu.databinding.ActivityAddMeetingBinding;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -50,6 +57,27 @@ public class AddMeetingActivity extends AppCompatActivity {
         // Affichage de la date et de l'heure actuelles dans les champs correspondants
         displayFormattedTime();
         displayFormattedDate();
+
+        // Active un TextWatcher sur les EditText pour activer le bouton de sauvegarde
+        List<EditText> textEdits = Arrays.asList(binding.meetingTitleEdit,binding.meetingRoomEdit,binding.meetingParticipantsEdit);
+        for (EditText e : textEdits) {
+            e.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    // Vérifie qu'aucun des textEdit n'est vide et active le bouton de sauvegarde si c'est le cas
+                    binding.newMeetingSaveButton.setEnabled(
+                            !binding.meetingTitleEdit.getText().toString().isEmpty()
+                            && !binding.meetingRoomEdit.getText().toString().isEmpty()
+                            && !binding.meetingParticipantsEdit.getText().toString().isEmpty());
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {}
+            });
+        }
 
         // En cas de clic sur le bouton de sauvegarde, appel de la méthode saveMeeting()
         binding.newMeetingSaveButton.setOnClickListener(v -> saveMeeting());

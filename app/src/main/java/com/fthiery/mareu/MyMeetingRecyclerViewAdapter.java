@@ -2,7 +2,6 @@ package com.fthiery.mareu;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -10,10 +9,10 @@ import android.widget.TextView;
 
 import com.fthiery.mareu.model.Meeting;
 import com.fthiery.mareu.databinding.FragmentMeetingBinding;
+import com.fthiery.mareu.service.MeetingList;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -21,25 +20,24 @@ import java.util.Locale;
  */
 public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetingRecyclerViewAdapter.ViewHolder> {
 
-    // meetings contient nos données
-    private final List<Meeting> meetings;
+    private final MeetingList meetingList;
 
-    public MyMeetingRecyclerViewAdapter(List<Meeting> meetings) {
-        this.meetings = meetings;
+    public MyMeetingRecyclerViewAdapter(MeetingList meetings) {
+        this.meetingList = meetings;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(parent.getContext(),FragmentMeetingBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new ViewHolder(FragmentMeetingBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         // Récupère les données à afficher depuis le Meeting correspondant et les formate
-        Meeting meeting = meetings.get(position);
+        Meeting meeting = meetingList.getMeetings().get(position);
         String title = meeting.getTitle();
         String place = meeting.getPlace();
-        String participants = TextUtils.join(", ", meetings.get(position).getParticipants());
+        String participants = TextUtils.join(", ", meetingList.getMeetings().get(position).getParticipants());
 
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(meeting.getTime());
@@ -53,24 +51,24 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
 
     @Override
     public int getItemCount() {
-        return meetings.size();
+        return meetingList.getMeetings().size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public final TextView fullTitleTextView;
         public final TextView participantsTextView;
-        private final EventListener mainActivity;
 
-        public ViewHolder(Context context, FragmentMeetingBinding binding) {
+        public ViewHolder(FragmentMeetingBinding binding) {
             super(binding.getRoot());
-            mainActivity = (EventListener) context;
             fullTitleTextView = binding.meetingFullTitle;
             participantsTextView = binding.meetingParticipants;
 
             binding.deleteButton.setOnClickListener(v -> {
                 // Gestion du clic sur le bouton de suppression de réunion
-                mainActivity.deleteMeeting(meetings.get(getLayoutPosition()));
+                Meeting m = meetingList.getMeetings().get(getLayoutPosition());
+                meetingList.deleteMeeting(m);
+                notifyDataSetChanged();
             });
         }
 
