@@ -42,4 +42,5 @@
     <string name="cancel">Annuler</string>
     <string name="place_filter_dialog_title">Filtrer par lieu</string>
     <string name="reset_filter">Retirer le filtre</string>
+    <string name="email_address_error">Devrait être une liste d\'adresses e-mail séparées par des virgules</string>
 </resources>

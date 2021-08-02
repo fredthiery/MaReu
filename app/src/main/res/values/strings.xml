@@ -24,6 +24,7 @@
     <string name="cancel">Cancel</string>
     <string name="place_filter_dialog_title">Filter by meeting room</string>
     <string name="reset_filter">Reset filter</string>
+    <string name="email_address_error">Should be email addresses separated by commas</string>
     <string-array name="meeting_rooms">
         <item>Mario Room</item>
         <item>Luigi Room</item>

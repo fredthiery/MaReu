@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements PlaceFilterDialog
 
     public void addMeeting(long time, String place, String title, String participants) {
         // Ajoute le meeting à la liste
+        participants = participants.replaceAll("\\s+","").replace(",",", ");
         List<String> p = Arrays.asList(participants.split(", "));
         mMeetings.addMeeting(new Meeting(time, place, title, p));
     }

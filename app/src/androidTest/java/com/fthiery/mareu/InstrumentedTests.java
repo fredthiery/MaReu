@@ -81,8 +81,8 @@ public class InstrumentedTests {
         // When
         onView(withId(R.id.fab_add_meeting)).perform(click());
         onView(withId(R.id.meeting_title_edit)).perform(typeText("Test"));
-        onView(withId(R.id.meeting_room_edit)).perform(typeText("Test"));
-        onView(withId(R.id.meeting_participants_edit)).perform(typeText("Test"));
+        onView(withId(R.id.meeting_room_edit)).perform(typeText("Salle Test"));
+        onView(withId(R.id.meeting_participants_edit)).perform(typeText("Test@test.com, test2@test.fr"));
         onView(withId(R.id.new_meeting_save_button)).perform(click());
         // Then
         onView(withId(R.id.meeting_recycler_view)).check(matches(hasChildCount(5)));
