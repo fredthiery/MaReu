@@ -5,7 +5,7 @@ import com.fthiery.mareu.model.Meeting;
 import java.util.List;
 
 /**
- * Meetings API
+ * Meetings List which can be filtered by date or by place
  */
 public interface MeetingList {
 
@@ -17,13 +17,13 @@ public interface MeetingList {
 
     /**
      * Add a new meeting
-     * @param meeting
+     * @param meeting  Meeting to add
      */
     void addMeeting(Meeting meeting);
 
     /**
      * Delete the meeting
-     * @param meeting
+     * @param meeting  Meeting to delete
      */
     void deleteMeeting(Meeting meeting);
 
@@ -34,20 +34,20 @@ public interface MeetingList {
 
     /**
      * Set a filter by date range
-     * @param startDate
-     * @param endDate
+     * @param startDate  First date of the range
+     * @param endDate  Last date of the range
      */
     void setFilter(Long startDate, Long endDate);
 
     /**
      * Set a filter by place
-     * @param place
+     * @param place  Place
      */
     void setFilter(String place);
 
     /**
-     * Returns the type of filter currently used
-     * @return
+     * Is the list filtered ?
+     * @return true if a filter is currently in place
      */
     boolean isFiltered();
 }

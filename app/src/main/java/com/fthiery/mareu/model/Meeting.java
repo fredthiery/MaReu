@@ -19,10 +19,10 @@ public class Meeting {
 
     /**
      * Constructor
-     * @param time
-     * @param place
-     * @param title
-     * @param participants
+     * @param time  Date and time of the meeting, expressed in milliseconds since epoch
+     * @param place  Place where the meeting happens
+     * @param title  Title of the meeting
+     * @param participants  Email addresses of the participants
      */
     public Meeting(long time, String place, String title, List<String> participants) {
         this.time = time;

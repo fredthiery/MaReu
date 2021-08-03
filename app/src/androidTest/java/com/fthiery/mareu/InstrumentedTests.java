@@ -26,7 +26,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -102,24 +101,6 @@ public class InstrumentedTests {
         onView(childAtPosition(childAtPosition(withId(R.id.mtrl_picker_text_input_range_start),0),1)).perform(replaceText("25/07/2021"));
         onView(childAtPosition(childAtPosition(withId(R.id.mtrl_picker_text_input_range_end), 0),1)).perform(replaceText("26/07/2021"));
         onView(withTagValue(equalTo("CONFIRM_BUTTON_TAG"))).perform(click());
-        // Then
-        onView(withId(R.id.meeting_recycler_view)).check(matches(hasChildCount(1)));
-    }
-
-    /**
-     * Check that we can filter the list by place
-     */
-    @Test
-    @Ignore
-    public void filterByPlaceAction_shouldFilterTheList() throws InterruptedException {
-        // Laisser tomber ce test à moins de trouver comment réveiller Espresso après l'ouverture du dialog
-        // Given
-        onView(withId(R.id.meeting_recycler_view)).check(matches(hasChildCount(4)));
-        // When
-        onView(withId(R.id.filter_menu_item)).perform(click());
-        onView(withText(R.string.filter_by_place_menu_item)).perform(click());
-        onView(withId(R.id.meeting_room_edit)).perform(typeText("Salle Mario"));
-        onView(withId(android.R.id.button1)).perform(click());
         // Then
         onView(withId(R.id.meeting_recycler_view)).check(matches(hasChildCount(1)));
     }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Dummy implementation of the API
+ * Implementation of the interface
  */
 public class DummyMeetingList implements MeetingList {
 
