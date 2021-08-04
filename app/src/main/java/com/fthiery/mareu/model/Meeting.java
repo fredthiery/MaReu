@@ -5,24 +5,33 @@ import java.util.Objects;
 
 public class Meeting {
 
-    /** Time and date */
+    /**
+     * Time and date
+     */
     private long time;
 
-    /** Place */
+    /**
+     * Place
+     */
     private String place;
 
-    /** Subject of the meeting */
+    /**
+     * Subject of the meeting
+     */
     private String title;
 
-    /** A list of participants */
+    /**
+     * A list of participants
+     */
     private List<String> participants;
 
     /**
      * Constructor
-     * @param time  Date and time of the meeting, expressed in milliseconds since epoch
-     * @param place  Place where the meeting happens
-     * @param title  Title of the meeting
-     * @param participants  Email addresses of the participants
+     *
+     * @param time         Date and time of the meeting, expressed in milliseconds since epoch
+     * @param place        Place where the meeting happens
+     * @param title        Title of the meeting
+     * @param participants Email addresses of the participants
      */
     public Meeting(long time, String place, String title, List<String> participants) {
         this.time = time;
@@ -73,7 +82,6 @@ public class Meeting {
 
     @Override
     public int hashCode() {
-        return Objects.hash(time,place,title);
+        return Objects.hash(time, place, title);
     }
-
 }

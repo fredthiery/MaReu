@@ -58,7 +58,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         // Active un TextWatcher sur les EditText pour activer le bouton de sauvegarde
         binding.meetingTitleEdit.addTextChangedListener(new inputTextWatcher());
         binding.meetingRoomEdit.addTextChangedListener(new inputTextWatcher());
-        binding.meetingParticipantsEdit.addTextChangedListener(new inputTextWatcher(true));
+        binding.meetingParticipantsEdit.addTextChangedListener(new participantsWatcher());
 
         // En cas de clic sur le bouton de sauvegarde, appel de la méthode saveMeeting()
         binding.newMeetingSaveButton.setOnClickListener(v -> saveMeeting());
@@ -168,29 +168,28 @@ public class AddMeetingActivity extends AppCompatActivity {
     }
 
     private class inputTextWatcher implements TextWatcher {
-        final boolean mParticipants;
-
-        public inputTextWatcher() { mParticipants = false; }
-
-        public inputTextWatcher(boolean b) { mParticipants = b; }
-
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            // Affiche un message d'erreur si le texte ne correspond pas à une adresse email
-            if (mParticipants && !isValidEmail(charSequence.toString())) {
-                binding.meetingParticipantsTextInput.setError(getString(R.string.email_address_error));
-            } else {
-                binding.meetingParticipantsTextInput.setError("");
-            }
-
-            // TODO: Afficher un message d'erreur si la salle n'est pas disponible à l'heure prévue
             activateSaveButton();
         }
 
         @Override
         public void afterTextChanged(Editable editable) {}
+    }
+
+    private class participantsWatcher extends inputTextWatcher {
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            // Affiche un message d'erreur si le texte ne correspond pas à une adresse email
+            if (!isValidEmail(charSequence.toString())) {
+                binding.meetingParticipantsTextInput.setError(getString(R.string.email_address_error));
+            } else {
+                binding.meetingParticipantsTextInput.setError("");
+            }
+            activateSaveButton();
+        }
     }
 }

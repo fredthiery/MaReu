@@ -11,19 +11,22 @@ public interface MeetingList {
 
     /**
      * Get all the meetings
+     *
      * @return {@link List}
      */
     List<Meeting> getMeetings();
 
     /**
      * Add a new meeting
-     * @param meeting  Meeting to add
+     *
+     * @param meeting Meeting to add
      */
     void addMeeting(Meeting meeting);
 
     /**
      * Delete the meeting
-     * @param meeting  Meeting to delete
+     *
+     * @param meeting Meeting to delete
      */
     void deleteMeeting(Meeting meeting);
 
@@ -34,19 +37,22 @@ public interface MeetingList {
 
     /**
      * Set a filter by date range
-     * @param startDate  First date of the range
-     * @param endDate  Last date of the range
+     *
+     * @param startDate First date of the range
+     * @param endDate   Last date of the range
      */
     void setFilter(Long startDate, Long endDate);
 
     /**
      * Set a filter by place
-     * @param place  Place
+     *
+     * @param place Place
      */
     void setFilter(String place);
 
     /**
      * Is the list filtered ?
+     *
      * @return true if a filter is currently in place
      */
     boolean isFiltered();

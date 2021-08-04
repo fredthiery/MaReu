@@ -44,4 +44,5 @@
     <string name="reset_filter">Retirer le filtre</string>
     <string name="email_address_error">Devrait être une liste d\'adresses e-mail séparées par des virgules</string>
     <string name="delete_meeting">Supprimer la réunion</string>
+    <string name="title_activity_add_meeting">Activité Ajout de réunion</string>
 </resources>
