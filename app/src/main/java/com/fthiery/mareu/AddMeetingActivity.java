@@ -186,6 +186,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                 binding.meetingParticipantsTextInput.setError("");
             }
 
+            // TODO: Afficher un message d'erreur si la salle n'est pas disponible à l'heure prévue
             activateSaveButton();
         }
 

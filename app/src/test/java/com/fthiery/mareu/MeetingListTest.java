@@ -1,5 +1,10 @@
 package com.fthiery.mareu;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import com.fthiery.mareu.model.Meeting;
 import com.fthiery.mareu.repository.DummyMeetingRepo;
 import com.fthiery.mareu.service.DummyMeetingList;
@@ -10,11 +15,6 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 public class MeetingListTest {
 
@@ -49,13 +49,13 @@ public class MeetingListTest {
     public void setFilterByDateWithSuccess() {
         // Given
         List<Meeting> expectedMeetings = Arrays.asList(
-                new Meeting(1627466424998L,"Salle Mario", "Brainstorming",
+                new Meeting(1628668823687L,"Salle Luigi", "Brainstorming",
                         Arrays.asList("pierre.hoquet@lamzone.com","patrick.ortrite@lamzone.com","rosalie.mentation@lamzone.com")),
-                new Meeting(1627466424998L,"Salle Bowser","Briefing",
-                        Arrays.asList("marie.golote@lamzone.fr","patrick.ortreat@lamzone.com"))
+                new Meeting(1628691323687L,"Salle Peach","Event Storming",
+                        Arrays.asList("sonia.enbloc@lamzone.com","martin.tamarre@lamzone.com"))
         );
         // When
-        meetingList.setFilter(1627423247312L,1627509658118L);
+        meetingList.setFilter(1628628823687L,1628741323687L);
         // Then
         assertThat(meetingList.getMeetings(),containsInAnyOrder(expectedMeetings.toArray()));
     }
@@ -64,8 +64,8 @@ public class MeetingListTest {
     public void setFilterByPlaceWithSuccess() {
         // Given
         List<Meeting> expectedMeetings = Arrays.asList(
-                new Meeting(1627466424998L, "Salle Mario", "Brainstorming",
-                        Arrays.asList("pierre.hoquet@lamzone.com", "patrick.ortrite@lamzone.com", "rosalie.mentation@lamzone.com"))
+                new Meeting(1628505023687L,"Salle Mario","Réunion d'information",
+                        Arrays.asList("jean.talus@lamzone.com","paul.hochon@lamzone.fr","marie.golote@lamzone.fr"))
         );
         // When
         meetingList.setFilter("Salle Mario");

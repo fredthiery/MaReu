@@ -98,8 +98,8 @@ public class InstrumentedTests {
         onView(withId(R.id.filter_menu_item)).perform(click());
         onView(withText(R.string.filter_by_date_menu_item)).perform(click());
         onView(withId(R.id.mtrl_picker_header_toggle)).perform(click());
-        onView(childAtPosition(childAtPosition(withId(R.id.mtrl_picker_text_input_range_start),0),1)).perform(replaceText("25/07/2021"));
-        onView(childAtPosition(childAtPosition(withId(R.id.mtrl_picker_text_input_range_end), 0),1)).perform(replaceText("26/07/2021"));
+        onView(childAtPosition(childAtPosition(withId(R.id.mtrl_picker_text_input_range_start),0),1)).perform(replaceText("09/08/2021"));
+        onView(childAtPosition(childAtPosition(withId(R.id.mtrl_picker_text_input_range_end), 0),1)).perform(replaceText("10/08/2021"));
         onView(withTagValue(equalTo("CONFIRM_BUTTON_TAG"))).perform(click());
         // Then
         onView(withId(R.id.meeting_recycler_view)).check(matches(hasChildCount(1)));
