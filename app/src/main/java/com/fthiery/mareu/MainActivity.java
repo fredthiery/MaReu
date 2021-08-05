@@ -2,13 +2,15 @@ package com.fthiery.mareu;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
-import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.fthiery.mareu.databinding.ActivityMainBinding;
+import com.fthiery.mareu.databinding.LayoutPlaceFilterDialogBinding;
 import com.fthiery.mareu.model.Meeting;
 import com.fthiery.mareu.service.DummyMeetingList;
 import com.fthiery.mareu.service.MeetingList;
@@ -19,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-public class MainActivity extends AppCompatActivity implements PlaceFilterDialog.EventListener {
+public class MainActivity extends AppCompatActivity {
 
     private static final int ADD_MEETING = 1;
     private ActivityMainBinding binding;
@@ -88,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements PlaceFilterDialog
 
     public void addMeeting(long time, String place, String title, String participants) {
         // Ajoute le meeting à la liste
-        participants = participants.replaceAll("\\s+","").replace(",",", ");
+        participants = participants.replaceAll("\\s+", "").replace(",", ", ");
         List<String> p = Arrays.asList(participants.split(", "));
         mMeetings.addMeeting(new Meeting(time, place, title, p));
     }
@@ -121,14 +123,34 @@ public class MainActivity extends AppCompatActivity implements PlaceFilterDialog
 
     private void selectFilterPlace() {
         // Affiche un dialog de sélection de lieu
-        DialogFragment placeFilterDialog = new PlaceFilterDialog();
-        placeFilterDialog.show(getSupportFragmentManager(), "dialog");
+        AlertDialog dialog = getPlaceFilterDialog();
+        dialog.show();
     }
 
-    @Override
-    public void onPlaceFilterSelect(DialogFragment dialog, String place) {
+    public void onPlaceFilterSelect(String place) {
         // Au clic sur un lieu dans la liste, applique le filtre à mMeetings et met à jour la RecyclerView
         mMeetings.setFilter(place);
         updateUI();
+    }
+
+    private AlertDialog getPlaceFilterDialog() {
+        // Initialisation de la boîte de dialogue
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        LayoutPlaceFilterDialogBinding dialogBinding = LayoutPlaceFilterDialogBinding.inflate(getLayoutInflater());
+        // Remplit la liste de suggestions
+        dialogBinding.dialogMeetingRoomEdit.setAdapter(ArrayAdapter.createFromResource(this, R.array.meeting_rooms, R.layout.list_item));
+
+        builder.setTitle(R.string.place_filter_dialog_title);
+        builder.setView(dialogBinding.getRoot());
+        builder.setPositiveButton(R.string.ok, (dialog, id) -> {
+            // En cas de clic sur OK, renvoie au listener un String contenant le nom du lieu sélectionné
+            onPlaceFilterSelect(dialogBinding.dialogMeetingRoomEdit.getText().toString());
+        });
+        builder.setNegativeButton(R.string.cancel, (dialog, id) -> {
+            // En cas de clic sur Annuler, ne rien faire
+        });
+
+        return builder.create();
     }
 }

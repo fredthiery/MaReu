@@ -5,6 +5,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.RootMatchers.isDialog;
 import static androidx.test.espresso.matcher.ViewMatchers.hasChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -22,6 +23,7 @@ import android.view.ViewParent;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.rule.ActivityTestRule;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -39,7 +41,8 @@ import org.junit.runner.RunWith;
 public class InstrumentedTests {
 
     @Rule
-    public ActivityScenarioRule<MainActivity> activityRule = new ActivityScenarioRule<>(MainActivity.class);
+    public ActivityTestRule<MainActivity> rule = new ActivityTestRule<>(MainActivity.class);
+    //public ActivityScenarioRule<MainActivity> activityRule = new ActivityScenarioRule<>(MainActivity.class);
 
 
     @Test
@@ -101,6 +104,23 @@ public class InstrumentedTests {
         onView(childAtPosition(childAtPosition(withId(R.id.mtrl_picker_text_input_range_start),0),1)).perform(replaceText("09/08/2021"));
         onView(childAtPosition(childAtPosition(withId(R.id.mtrl_picker_text_input_range_end), 0),1)).perform(replaceText("10/08/2021"));
         onView(withTagValue(equalTo("CONFIRM_BUTTON_TAG"))).perform(click());
+        // Then
+        onView(withId(R.id.meeting_recycler_view)).check(matches(hasChildCount(1)));
+    }
+
+    /**
+     * Check that we can filter the list by place
+     */
+    @Test
+    public void filterByPlaceAction_shouldFilterTheList() {
+        // Laisser tomber ce test à moins de trouver comment réveiller Espresso après l'ouverture du dialog
+        // Given
+        onView(withId(R.id.meeting_recycler_view)).check(matches(hasChildCount(4)));
+        // When
+        onView(withId(R.id.filter_menu_item)).perform(click());
+        onView(withText(R.string.filter_by_place_menu_item)).perform(click());
+        onView(withId(R.id.dialog_meeting_room_edit)).perform(replaceText("Salle Mario"));
+        onView(withId(android.R.id.button1)).perform(click());
         // Then
         onView(withId(R.id.meeting_recycler_view)).check(matches(hasChildCount(1)));
     }
