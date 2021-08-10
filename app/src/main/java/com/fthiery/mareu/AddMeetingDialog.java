@@ -170,7 +170,7 @@ public class AddMeetingDialog extends DialogFragment {
             Button saveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
             saveButton.setEnabled(
                     !newMeeting.getTitle().isEmpty()
-                            && !newMeeting.getPlace().isEmpty()
+                            && meetingList.isPlaceAvailableAt(newMeeting.getPlace(), newMeeting.getTime(), newMeeting.getDuration())
                             && isValidEmail(binding.meetingParticipantsEdit.getText().toString())
             );
         }
