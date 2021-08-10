@@ -4,6 +4,7 @@ import com.fthiery.mareu.model.Meeting;
 import com.fthiery.mareu.repository.DummyMeetingRepo;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -73,6 +74,38 @@ public class DummyMeetingList implements MeetingList {
         refreshFilteredMeetings();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isFiltered() {
+        return filter.type != NONE;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isPlaceAvailableAt(String place, long time, int duration) {
+        Calendar endTime = Calendar.getInstance();
+        endTime.setTimeInMillis(time);
+        endTime.add(Calendar.MINUTE, duration - 1);
+
+        List<Meeting> ml = getMeetings(place);
+        for (Meeting m : ml ) {
+            if (time <= m.getEndTime() && endTime.getTimeInMillis() > m.getTime()) return false;
+        }
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int size() {
+        return filteredMeetings.size();
+    }
+
     private List<Meeting> getMeetings(Long startDate, Long endDate) {
         // Returns a list of meetings filtered by a date range
         List<Meeting> filteredList = new ArrayList<>();
@@ -103,11 +136,6 @@ public class DummyMeetingList implements MeetingList {
         } else if (filter.type == PLACE) {
             filteredMeetings = getMeetings(filter.place);
         }
-    }
-
-    @Override
-    public boolean isFiltered() {
-        return filter.type != NONE;
     }
 
     private static class Filter {

@@ -45,4 +45,7 @@
     <string name="email_address_error">Devrait être une liste d\'adresses e-mail séparées par des virgules</string>
     <string name="delete_meeting">Supprimer la réunion</string>
     <string name="title_activity_add_meeting">Activité Ajout de réunion</string>
+    <string name="place_unavailable">Cette salle n\'est pas disponible à l\'heure demandée</string>
+    <string name="meeting_duration">Durée</string>
+    <string name="minutes_short">min</string>
 </resources>

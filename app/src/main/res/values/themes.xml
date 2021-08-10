@@ -12,14 +12,14 @@
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
     </style>
 
-    <style name="Widget.MaRéu.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <style name="Widget.MaRéu.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="hintTextAppearance">@style/TextAppearance.MaRéu.TextInputLayout.HintText</item>
         <item name="hintTextColor">@color/colorPrimary</item>
         <item name="android:paddingBottom">8dp</item>
         <item name="boxStrokeColor">@color/colorAccent</item>
     </style>
 
-    <style name="Widget.MaRéu.TextInputLayout.ExposedDropDownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+    <style name="Widget.MaRéu.TextInputLayout.ExposedDropDownMenu" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
         <item name="hintTextAppearance">@style/TextAppearance.MaRéu.TextInputLayout.HintText</item>
         <item name="hintTextColor">@color/colorPrimary</item>
         <item name="android:paddingBottom">8dp</item>
@@ -28,5 +28,10 @@
 
     <style name="TextAppearance.MaRéu.TextInputLayout.HintText" parent="TextAppearance.MaterialComponents.Subtitle2">
         <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="myFullscreenAlertDialogStyle" parent="Theme.MaterialComponents.DayNight.DialogWhenLarge">
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 </resources>

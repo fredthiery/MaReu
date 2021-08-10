@@ -56,4 +56,20 @@ public interface MeetingList {
      * @return true if a filter is currently in place
      */
     boolean isFiltered();
+
+    /**
+     * Is the place available at the time
+     *
+     * @param place    Place
+     * @param time     Time in millis
+     * @param duration Duration in minutes
+     * @return true if available
+     */
+    boolean isPlaceAvailableAt(String place, long time, int duration);
+
+    /**
+     * Returns the number of meetings (depending on the filter)
+     * @return the number of meetings
+     */
+    int size();
 }

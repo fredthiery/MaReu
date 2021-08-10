@@ -1,6 +1,5 @@
 package com.fthiery.mareu;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 
@@ -16,14 +15,11 @@ import com.fthiery.mareu.service.DummyMeetingList;
 import com.fthiery.mareu.service.MeetingList;
 import com.google.android.material.datepicker.MaterialDatePicker;
 
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 import java.util.TimeZone;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Listener{
 
-    private static final int ADD_MEETING = 1;
     private ActivityMainBinding binding;
     private final MeetingList mMeetings = new DummyMeetingList();
     private LinearLayoutManager mManager;
@@ -39,12 +35,13 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialisation du RecyclerView
         mManager = new LinearLayoutManager(binding.meetingRecyclerView.getContext());
-        mAdapter = new MyMeetingRecyclerViewAdapter(mMeetings);
+        mAdapter = new MyMeetingRecyclerViewAdapter(mMeetings, this);
 
         // En cas de clic sur le floatingActionButton, appel de l'activité addMeeting
         binding.fabAddMeeting.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), AddMeetingActivity.class);
-            startActivityForResult(intent, ADD_MEETING);
+            // Affichage de la boîte de dialogue d'ajout de réunion
+            AddMeetingDialog dialog = new AddMeetingDialog(mMeetings, this);
+            dialog.show(getSupportFragmentManager(), "dialog");
         });
 
         // Configuration des actions du menu
@@ -74,25 +71,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        // Lorsque l'activité AddMeeting est finie, récupère les données dans un extra et appelle addMeeting()
-        if (requestCode == ADD_MEETING) {
-            if (resultCode == RESULT_OK) {
-                long time = data.getLongExtra("time", 0);
-                String place = data.getStringExtra("place");
-                String title = data.getStringExtra("title");
-                String participants = data.getStringExtra("participants");
-                addMeeting(time, place, title, participants);
-            }
-        }
+    public void onDeleteMeeting(int m) {
+        mMeetings.deleteMeeting(mMeetings.getMeetings().get(m));
+        mAdapter.notifyDataSetChanged();
     }
 
-    public void addMeeting(long time, String place, String title, String participants) {
-        // Ajoute le meeting à la liste
-        participants = participants.replaceAll("\\s+", "").replace(",", ", ");
-        List<String> p = Arrays.asList(participants.split(", "));
-        mMeetings.addMeeting(new Meeting(time, place, title, p));
+    @Override
+    public void onAddMeeting(Meeting meeting) {
+        mMeetings.addMeeting(meeting);
+        mAdapter.notifyItemInserted(mMeetings.size());
     }
 
     private void updateUI() {
@@ -127,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public void onPlaceFilterSelect(String place) {
+    private void onPlaceFilterSelect(String place) {
         // Au clic sur un lieu dans la liste, applique le filtre à mMeetings et met à jour la RecyclerView
         mMeetings.setFilter(place);
         updateUI();

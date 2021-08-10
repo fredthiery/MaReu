@@ -5,13 +5,15 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.RootMatchers.isDialog;
 import static androidx.test.espresso.matcher.ViewMatchers.hasChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withTagValue;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 
@@ -20,10 +22,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
+import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.rule.ActivityTestRule;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -41,8 +43,7 @@ import org.junit.runner.RunWith;
 public class InstrumentedTests {
 
     @Rule
-    public ActivityTestRule<MainActivity> rule = new ActivityTestRule<>(MainActivity.class);
-    //public ActivityScenarioRule<MainActivity> activityRule = new ActivityScenarioRule<>(MainActivity.class);
+    public ActivityScenarioRule<MainActivity> activityRule = new ActivityScenarioRule<>(MainActivity.class);
 
 
     @Test
@@ -85,7 +86,8 @@ public class InstrumentedTests {
         onView(withId(R.id.meeting_title_edit)).perform(typeText("Test"));
         onView(withId(R.id.meeting_room_edit)).perform(typeText("Salle Test"));
         onView(withId(R.id.meeting_participants_edit)).perform(typeText("Test@test.com, test2@test.fr"));
-        onView(withId(R.id.new_meeting_save_button)).perform(click());
+        Espresso.pressBack();
+        onView(withId(android.R.id.button1)).perform(click());
         // Then
         onView(withId(R.id.meeting_recycler_view)).check(matches(hasChildCount(5)));
     }
@@ -106,6 +108,8 @@ public class InstrumentedTests {
         onView(withTagValue(equalTo("CONFIRM_BUTTON_TAG"))).perform(click());
         // Then
         onView(withId(R.id.meeting_recycler_view)).check(matches(hasChildCount(1)));
+        onView(allOf(withId(R.id.meeting_full_title),isDisplayed()))
+                .check(matches(withText(containsString("09/08/2021"))));
     }
 
     /**
@@ -113,7 +117,6 @@ public class InstrumentedTests {
      */
     @Test
     public void filterByPlaceAction_shouldFilterTheList() {
-        // Laisser tomber ce test à moins de trouver comment réveiller Espresso après l'ouverture du dialog
         // Given
         onView(withId(R.id.meeting_recycler_view)).check(matches(hasChildCount(4)));
         // When
@@ -123,6 +126,8 @@ public class InstrumentedTests {
         onView(withId(android.R.id.button1)).perform(click());
         // Then
         onView(withId(R.id.meeting_recycler_view)).check(matches(hasChildCount(1)));
+        onView(allOf(withId(R.id.meeting_full_title),isDisplayed()))
+                .check(matches(withText(containsString("Salle Mario"))));
     }
 
     /**

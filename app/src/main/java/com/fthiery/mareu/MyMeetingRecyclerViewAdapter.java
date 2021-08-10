@@ -24,9 +24,11 @@ import java.util.Random;
 public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetingRecyclerViewAdapter.ViewHolder> {
 
     private final MeetingList meetingList;
+    private final Listener listener;
 
-    public MyMeetingRecyclerViewAdapter(MeetingList meetings) {
+    public MyMeetingRecyclerViewAdapter(MeetingList meetings, Listener listener) {
         this.meetingList = meetings;
+        this.listener = listener;
     }
 
     @Override
@@ -77,9 +79,7 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
 
             binding.deleteButton.setOnClickListener(v -> {
                 // Gestion du clic sur le bouton de suppression de réunion
-                Meeting m = meetingList.getMeetings().get(getLayoutPosition());
-                meetingList.deleteMeeting(m);
-                notifyDataSetChanged();
+                listener.onDeleteMeeting(getLayoutPosition());
             });
         }
 
