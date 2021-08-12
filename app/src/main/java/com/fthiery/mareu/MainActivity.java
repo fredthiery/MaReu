@@ -40,7 +40,8 @@ public class MainActivity extends AppCompatActivity implements Listener{
         // En cas de clic sur le floatingActionButton, appel de l'activité addMeeting
         binding.fabAddMeeting.setOnClickListener(v -> {
             // Affichage de la boîte de dialogue d'ajout de réunion
-            AddMeetingDialog dialog = new AddMeetingDialog(mMeetings, this);
+            AddMeetingDialog dialog = new AddMeetingDialog();
+            dialog.setMeetingList(mMeetings);
             dialog.show(getSupportFragmentManager(), "dialog");
         });
 
