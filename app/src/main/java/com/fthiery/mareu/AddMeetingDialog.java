@@ -1,6 +1,7 @@
 package com.fthiery.mareu;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -10,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.MultiAutoCompleteTextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
@@ -30,12 +32,13 @@ public class AddMeetingDialog extends DialogFragment {
     private DialogAddMeetingBinding binding;
 
     private Meeting newMeeting;
-    private final MeetingList meetingList;
-    private final Listener listener;
+    private MeetingList meetingList;
+    private Listener listener;
 
-    public AddMeetingDialog(MeetingList mList, Listener listener) {
-        this.meetingList = mList;
-        this.listener = listener;
+    @Override
+    public void onAttach(@NonNull Context context) {
+        listener = (Listener) context;
+        super.onAttach(context);
     }
 
     @Override
@@ -94,6 +97,10 @@ public class AddMeetingDialog extends DialogFragment {
     public void onStart() {
         super.onStart();
         activateSaveButton();
+    }
+
+    public void setMeetingList(MeetingList meetingList) {
+        this.meetingList = meetingList;
     }
 
     private void buttonSelectDate() {
